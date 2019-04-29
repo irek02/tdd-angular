@@ -11,17 +11,17 @@ export class HomesComponent implements OnInit {
   homes$ = of([
     {
       title: 'Home 1',
-      image: 'url/home1',
+      image: 'assets/listing.jpg',
       location: 'new york',
     },
     {
       title: 'Home 2',
-      image: 'url/home2',
+      image: 'assets/listing.jpg',
       location: 'boston',
     },
     {
       title: 'Home 3',
-      image: 'url/home3',
+      image: 'assets/listing.jpg',
       location: 'chicago',
     }
   ]);
