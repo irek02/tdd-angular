@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { DialogService } from '../../services/dialog.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BookComponent } from '../book/book.component';
 
@@ -12,22 +13,16 @@ export class HomesComponent implements OnInit {
 
   homes$;
 
-  constructor(private dataService: DataService, public dialog: MatDialog) { }
+  constructor(private dataService: DataService, public dialogService: DialogService) { }
 
   ngOnInit() {
     this.homes$ = this.dataService.getHomes$();
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(BookComponent, {
-      width: '250px',
-      data: { name: 'hello' }
+    this.dialogService.open(BookComponent, {
+      name: 'hello'
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
   }
 
 }
