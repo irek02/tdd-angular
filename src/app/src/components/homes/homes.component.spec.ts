@@ -53,4 +53,12 @@ describe('HomesComponent', () => {
     expect(home.querySelector('[data-test="location"]').innerText).toEqual('new york');
 
   });
+
+  it('should show book button', () => {
+
+    const home = fixture.nativeElement.querySelector('[data-test="home"]');
+
+    expect(home.querySelector('[data-test="book-btn"]')).toBeTruthy();
+
+  });
 });
