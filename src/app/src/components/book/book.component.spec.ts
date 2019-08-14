@@ -8,9 +8,9 @@ describe('BookComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookComponent ]
+      declarations: [BookComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +19,40 @@ describe('BookComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should show title', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show price per night', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should show check in date field', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should show check out date field', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should show total based on selected dates', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('submitting form', () => {
+
+    it('should disable book button', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should book home using data service', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should show error if booking fails', () => {
+      expect(component).toBeTruthy();
+    });
+
+  });
+
 });
