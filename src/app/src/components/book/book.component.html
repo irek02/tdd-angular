@@ -1,3 +1,5 @@
-<p>
-  book works!
-</p>
+<div data-test="title">{{ data.home.title }}</div>
+<div data-test="price">${{ data.home.price }} per night</div>
+<div data-test="check-in"><input [(ngModel)]="checkIn"></div>
+<div data-test="check-out"><input [(ngModel)]="checkOut"></div>
+<div data-test="total">${{ calculateTotal(checkIn, checkOut) }}</div>

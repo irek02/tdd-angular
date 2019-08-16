@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-book',
@@ -8,10 +9,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class BookComponent implements OnInit {
 
+  checkIn;
+  checkOut;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
-    console.log(this.data);
+  }
+
+  calculateTotal(checkIn, checkOut) {
+
+    return moment(checkOut).diff(moment(checkIn), 'days') * this.data.home.price;
+
   }
 
 }
