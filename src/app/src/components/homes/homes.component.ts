@@ -18,9 +18,10 @@ export class HomesComponent implements OnInit {
     this.homes$ = this.dataService.getHomes$();
   }
 
-  openDialog(): void {
+  openDialog(home): void {
     this.dialogService.open(BookComponent, {
-      name: 'hello'
+      width: '250px',
+      data: home
     });
   }
 

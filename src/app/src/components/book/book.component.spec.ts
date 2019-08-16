@@ -1,14 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookComponent } from './book.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { spyOnClass } from 'jasmine-es6-spies';
 
 describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
+  let dialog: jasmine.SpyObj<MatDialogRef<BookComponent>>;
+
+  let dialogData: {
+    name: string;
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [BookComponent]
+      declarations: [BookComponent],
+      providers: [
+        { provide: MatDialogRef, useFactory: () => spyOnClass(MatDialogRef) },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
     })
       .compileComponents();
   }));
@@ -16,6 +27,9 @@ describe('BookComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
+
+    dialogData = TestBed.get(MAT_DIALOG_DATA);
+
     fixture.detectChanges();
   });
 
