@@ -78,33 +78,25 @@ describe('BookComponent', () => {
 
   });
 
-  describe('submitting form', () => {
+  it('should book home after clicking book button', () => {
 
-    it('should book home using data service', () => {
+    // enter dates
+    const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+    checkInField.value = '12/20/19';
 
-      // enter dates
-      const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
-      checkInField.value = '12/20/19';
+    const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+    checkOutField.value = '12/23/19';
 
-      const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
-      checkOutField.value = '12/23/19';
+    checkInField.dispatchEvent(new Event('input'));
+    checkOutField.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
 
-      checkInField.dispatchEvent(new Event('input'));
-      checkOutField.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
+    // click the Book button
+    fixture.nativeElement.querySelector('[data-test="book"] button').click();
+    fixture.detectChanges();
 
-      // click the Book button
-      fixture.nativeElement.querySelector('[data-test="book"] button').click();
-      fixture.detectChanges();
-
-      // assert that it called the service method with proper data.
-      expect(dataService.bookHome$).toHaveBeenCalledWith('12/20/19', '12/23/19');
-
-    });
-
-    it('should show error if booking fails', () => {
-      expect(component).toBeTruthy();
-    });
+    // assert that it called the service method with proper data.
+    expect(dataService.bookHome$).toHaveBeenCalledWith('12/20/19', '12/23/19');
 
   });
 
