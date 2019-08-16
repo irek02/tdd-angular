@@ -4,13 +4,14 @@ import { BookComponent } from './book.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { spyOnClass } from 'jasmine-es6-spies';
 import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { DataService } from '../../services/data.service';
 
-fdescribe('BookComponent', () => {
+describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
   // let dialog: jasmine.SpyObj<MatDialogRef<BookComponent>>;
   let dialogData;
+  let dataService: jasmine.SpyObj<DataService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,6 +20,7 @@ fdescribe('BookComponent', () => {
       providers: [
         { provide: MatDialogRef, useFactory: () => spyOnClass(MatDialogRef) },
         { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: DataService, useFactory: () => spyOnClass(DataService) },
       ]
     })
       .compileComponents();
@@ -31,6 +33,7 @@ fdescribe('BookComponent', () => {
 
     dialogData = TestBed.get(MAT_DIALOG_DATA);
     dialogData.home = homes[0];
+    dataService = TestBed.get(DataService);
 
     fixture.detectChanges();
   });
@@ -77,12 +80,26 @@ fdescribe('BookComponent', () => {
 
   describe('submitting form', () => {
 
-    it('should disable book button', () => {
-      expect(component).toBeTruthy();
-    });
-
     it('should book home using data service', () => {
-      expect(component).toBeTruthy();
+
+      // enter dates
+      const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+      checkInField.value = '12/20/19';
+
+      const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+      checkOutField.value = '12/23/19';
+
+      checkInField.dispatchEvent(new Event('input'));
+      checkOutField.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      // click the Book button
+      fixture.nativeElement.querySelector('[data-test="book"] button').click();
+      fixture.detectChanges();
+
+      // assert that it called the service method with proper data.
+      expect(dataService.bookHome$).toHaveBeenCalledWith('12/20/19', '12/23/19');
+
     });
 
     it('should show error if booking fails', () => {

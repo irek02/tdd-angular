@@ -13,4 +13,8 @@ export class DataService {
     return this.httpClient.get('assets/homes.json');
 
   }
+
+  bookHome$(checkIn, checkOut) {
+
+  }
 }
