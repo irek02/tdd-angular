@@ -3,4 +3,4 @@
 <div data-test="check-in"><input [(ngModel)]="checkIn"></div>
 <div data-test="check-out"><input [(ngModel)]="checkOut"></div>
 <div data-test="total">${{ calculateTotal(checkIn, checkOut) }}</div>
-<div data-test="book"><button (click)="book(checkIn, checkOut)"></button></div>
+<div data-test="book"><button (click)="book(checkIn, checkOut)">Book</button></div>

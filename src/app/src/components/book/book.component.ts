@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { DataService } from '../../services/data.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-book',
@@ -15,7 +16,9 @@ export class BookComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
-    private dataService: DataService
+    private dialogRef: MatDialogRef<BookComponent>,
+    private dataService: DataService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -23,13 +26,20 @@ export class BookComponent implements OnInit {
 
   calculateTotal(checkIn, checkOut) {
 
-    return moment(checkOut).diff(moment(checkIn), 'days') * this.data.home.price;
+    const checkInDate = moment(checkIn, 'MM-DD-YY');
+    const checkOutDate = moment(checkOut, 'MM-DD-YY');
+
+    return checkOutDate.diff(checkInDate, 'days') * this.data.home.price;
 
   }
 
   book(checkIn, checkOut) {
 
-    this.dataService.bookHome$(checkIn, checkOut);
+    this.dataService.bookHome$(checkIn, checkOut)
+      .subscribe(() => {
+        this.dialogRef.close();
+        this.notificationService.post('Home booked!');
+      });
 
   }
 

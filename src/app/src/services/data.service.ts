@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subscription, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ export class DataService {
 
   }
 
-  bookHome$(checkIn, checkOut) {
+  bookHome$(checkIn, checkOut): Observable<void> {
+
+    return of(null);
 
   }
 }
