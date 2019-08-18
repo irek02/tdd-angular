@@ -15,9 +15,9 @@ export class DataService {
 
   }
 
-  bookHome$(checkIn, checkOut): Observable<void> {
+  bookHome$(checkIn, checkOut): Observable<any> {
 
-    return of(null);
+    return this.httpClient.post('http://www.mocky.io/v2/5d59d6283000001f57d84c9a', {});
 
   }
 }
