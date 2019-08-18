@@ -1,5 +1,18 @@
-<div data-test="title">{{ data.home.title }}</div>
-<div data-test="price">${{ data.home.price }} per night</div>
+<h2
+  data-test="title"
+  mat-dialog-title
+>
+  Book {{ data.home.title }} in {{ data.home.location }}
+</h2>
+<div>
+  <span
+    data-test="price"
+    class="uk-text-large uk-text-bold uk-text-primary"
+  >
+    ${{ data.home.price }}
+  </span>
+  per night
+</div>
 <div data-test="check-in"><input [(ngModel)]="checkIn"></div>
 <div data-test="check-out"><input [(ngModel)]="checkOut"></div>
 <div data-test="total">${{ calculateTotal(checkIn, checkOut) }}</div>

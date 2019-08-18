@@ -46,13 +46,13 @@ describe('BookComponent', () => {
 
   it('should show title', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="title"]').textContent).toEqual('Home 1');
+    expect(fixture.nativeElement.querySelector('[data-test="title"]').textContent).toContain('Book Home 1 in new york');
 
   });
 
   it('should show price per night', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="price"]').textContent).toEqual('$120 per night');
+    expect(fixture.nativeElement.querySelector('[data-test="price"]').textContent).toEqual('$120');
 
   });
 
