@@ -4,14 +4,8 @@
 >
   Book {{ data.home.title }} in {{ data.home.location }}
 </h2>
-<div>
-  <span
-    data-test="price"
-    class="uk-text-large uk-text-bold uk-text-primary"
-  >
-    ${{ data.home.price }}
-  </span>
-  per night
+<div data-test="price">
+  <span class="uk-text-large uk-text-bold uk-text-primary">${{ data.home.price }}</span> per night
 </div>
 <div data-test="check-in"><input [(ngModel)]="checkIn"></div>
 <div data-test="check-out"><input [(ngModel)]="checkOut"></div>

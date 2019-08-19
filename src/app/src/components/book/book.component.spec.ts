@@ -52,7 +52,7 @@ describe('BookComponent', () => {
 
   it('should show price per night', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="price"]').textContent).toEqual('$120');
+    expect(fixture.nativeElement.querySelector('[data-test="price"]').textContent).toContain('$120');
 
   });
 
