@@ -1,52 +1,28 @@
-<h2
-  data-test="title"
-  mat-dialog-title
->
+<h2 data-test="title" mat-dialog-title>
   Book {{ data.home.title }} in {{ data.home.location }}
 </h2>
-<div
-  data-test="price"
-  class="uk-margin"
->
-  <span class="uk-text-large uk-text-bold uk-text-primary">${{ data.home.price }}</span> per night
+<div data-test="price" class="uk-margin">
+  <span class="uk-text-large uk-text-bold uk-text-primary">
+    ${{ data.home.price }}</span> per night
 </div>
 <div class="uk-margin">
-  <div
-    data-test="check-in"
-    class="uk-width-1-2"
-  >
-    <input
-      class="uk-input"
-      placeholder="Check in"
-      [(ngModel)]="checkIn"
-    >
+  <div data-test="check-in" class="uk-width-1-2">
+    <input class="uk-input" placeholder="Check in"
+      [(ngModel)]="checkIn">
   </div>
-  <div
-    data-test="check-out"
-    class="uk-width-1-2"
-  >
-    <input
-      class="uk-input"
-      placeholder="Check out"
-      [(ngModel)]="checkOut"
-    >
+  <div data-test="check-out" class="uk-width-1-2">
+    <input class="uk-input" placeholder="Check out"
+      [(ngModel)]="checkOut">
   </div>
 </div>
 <hr>
-<div
-  data-test="total"
-  class="uk-text-bold"
->
+<div data-test="total" class="uk-text-bold">
   Total: ${{ calculateTotal(checkIn, checkOut) }}
 </div>
-<div
-  data-test="book"
-  class="uk-margin "
->
+<div data-test="book" class="uk-margin ">
   <button
     class="uk-button-primary uk-button-large uk-width-1-1"
-    (click)="book(checkIn, checkOut)"
-  >
+    (click)="book(checkIn, checkOut)">
     Book
   </button>
 </div>
