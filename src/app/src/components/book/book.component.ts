@@ -29,7 +29,13 @@ export class BookComponent implements OnInit {
     const checkInDate = moment(checkIn, 'MM-DD-YY');
     const checkOutDate = moment(checkOut, 'MM-DD-YY');
 
-    return checkOutDate.diff(checkInDate, 'days') * this.data.home.price;
+    const result = checkOutDate.diff(checkInDate, 'days') * this.data.home.price;
+
+    if (result > 0 && result < 50000) {
+      return '$' + result;
+    }
+
+    return '';
 
   }
 

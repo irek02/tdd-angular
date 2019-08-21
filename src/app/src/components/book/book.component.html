@@ -27,10 +27,11 @@
   </div>
 </div>
 <hr>
-<div data-test="total" class="uk-text-bold">
-  Total: ${{ calculateTotal(checkIn, checkOut) }}
+<div class="uk-text-bold">
+  Total: <span
+    data-test="total">{{ calculateTotal(checkIn, checkOut) }}</span>
 </div>
-<div data-test="book" class="uk-margin ">
+<div data-test="book" class="uk-margin">
   <button
     class="uk-button-primary uk-button-large uk-width-1-1"
     (click)="book(checkIn, checkOut)">

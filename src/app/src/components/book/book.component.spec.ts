@@ -147,4 +147,23 @@ describe('BookComponent', () => {
 
   });
 
+  it('should show nothing for total when date range is invalid', () => {
+
+    // enter dates
+    const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+    checkInField.value = '12/23/19';
+
+    const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+    checkOutField.value = '12/20/19';
+
+    checkInField.dispatchEvent(new Event('input'));
+    checkOutField.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[data-test="total"]').textContent).toBe('');
+
+  });
+
 });
