@@ -21,6 +21,8 @@ describe('BookComponent', () => {
   let dataService: jasmine.SpyObj<DataService>;
   let notificationService: jasmine.SpyObj<NotificationService>;
 
+  const el = (selector) => fixture.nativeElement.querySelector(selector);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BookComponent],
@@ -58,41 +60,46 @@ describe('BookComponent', () => {
 
   it('should show title', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="title"]').textContent).toContain('Book Home 1 in new york');
+    expect(el('[data-test="title"]').textContent)
+      .toContain('Book Home 1 in new york');
 
   });
 
   it('should show price per night', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="price"]').textContent).toContain('$120');
+    expect(el('[data-test="price"]').textContent)
+      .toContain('$120');
 
   });
 
   it('should show check in date field', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="check-in"]')).toBeTruthy();
+    expect(el('[data-test="check-in"]'))
+      .toBeTruthy();
 
   });
 
   it('should show check out date field', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="check-out"]')).toBeTruthy();
+    expect(el('[data-test="check-out"]'))
+      .toBeTruthy();
 
   });
 
   it('should show total based on selected dates', () => {
 
-    const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+    const checkInField = el('[data-test="check-in"] input');
     checkInField.value = '12/20/19';
 
-    const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+    const checkOutField = el('[data-test="check-out"] input');
     checkOutField.value = '12/23/19';
 
     checkInField.dispatchEvent(new Event('input'));
     checkOutField.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('[data-test="total"]').textContent).toContain('$360');
+    expect(el('[data-test="total"]').textContent)
+      .toContain('$360');
 
   });
 
@@ -101,10 +108,10 @@ describe('BookComponent', () => {
     dataService.bookHome$.and.returnValue(of(null));
 
     // enter dates
-    const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+    const checkInField = el('[data-test="check-in"] input');
     checkInField.value = '12/20/19';
 
-    const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+    const checkOutField = el('[data-test="check-out"] input');
     checkOutField.value = '12/23/19';
 
     checkInField.dispatchEvent(new Event('input'));
@@ -112,11 +119,12 @@ describe('BookComponent', () => {
     fixture.detectChanges();
 
     // click the Book button
-    fixture.nativeElement.querySelector('[data-test="book"] button').click();
+    el('[data-test="book"] button').click();
     fixture.detectChanges();
 
     // assert that it called the service method with proper data.
-    expect(dataService.bookHome$).toHaveBeenCalledWith('12/20/19', '12/23/19');
+    expect(dataService.bookHome$)
+      .toHaveBeenCalledWith('12/20/19', '12/23/19');
 
   });
 
@@ -125,10 +133,10 @@ describe('BookComponent', () => {
     dataService.bookHome$.and.returnValue(of(null));
 
     // enter dates
-    const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+    const checkInField = el('[data-test="check-in"] input');
     checkInField.value = '12/20/19';
 
-    const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+    const checkOutField = el('[data-test="check-out"] input');
     checkOutField.value = '12/23/19';
 
     checkInField.dispatchEvent(new Event('input'));
@@ -136,7 +144,7 @@ describe('BookComponent', () => {
     fixture.detectChanges();
 
     // click the Book button
-    fixture.nativeElement.querySelector('[data-test="book"] button').click();
+    el('[data-test="book"] button').click();
     fixture.detectChanges();
 
     // assert that the dialog closed
@@ -150,10 +158,10 @@ describe('BookComponent', () => {
   it('should show nothing for total when date range is invalid', () => {
 
     // enter dates
-    const checkInField = fixture.nativeElement.querySelector('[data-test="check-in"] input');
+    const checkInField = el('[data-test="check-in"] input');
     checkInField.value = '12/23/19';
 
-    const checkOutField = fixture.nativeElement.querySelector('[data-test="check-out"] input');
+    const checkOutField = el('[data-test="check-out"] input');
     checkOutField.value = '12/20/19';
 
     checkInField.dispatchEvent(new Event('input'));
@@ -162,7 +170,7 @@ describe('BookComponent', () => {
 
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('[data-test="total"]').textContent).toBe('');
+    expect(el('[data-test="total"]').textContent).toBe('');
 
   });
 
