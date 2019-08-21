@@ -80,7 +80,7 @@ describe('BookComponent', () => {
     checkOutField.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('[data-test="total"]').textContent).toEqual('$360');
+    expect(fixture.nativeElement.querySelector('[data-test="total"]').textContent).toContain('$360');
 
   });
 
