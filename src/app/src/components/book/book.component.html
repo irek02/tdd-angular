@@ -7,12 +7,23 @@
 </div>
 <div class="uk-margin">
   <div data-test="check-in" class="uk-width-1-2">
-    <input class="uk-input" placeholder="Check in"
-      [(ngModel)]="checkIn">
+    <mat-form-field>
+      <input placeholder="Check in" [(ngModel)]="checkIn"
+        matInput [matDatepicker]="pickerCheckIn">
+      <mat-datepicker-toggle matSuffix [for]="pickerCheckIn">
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerCheckIn></mat-datepicker>
+    </mat-form-field>
   </div>
   <div data-test="check-out" class="uk-width-1-2">
-    <input class="uk-input" placeholder="Check out"
-      [(ngModel)]="checkOut">
+    <mat-form-field>
+      <input placeholder="Check out" [(ngModel)]="checkOut"
+        matInput [matDatepicker]="pickerCheckOut">
+      <mat-datepicker-toggle matSuffix
+        [for]="pickerCheckOut">
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerCheckOut></mat-datepicker>
+    </mat-form-field>
   </div>
 </div>
 <hr>

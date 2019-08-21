@@ -7,6 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { of } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BookComponent', () => {
   let component: BookComponent;
@@ -19,7 +24,14 @@ describe('BookComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BookComponent],
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        BrowserAnimationsModule
+      ],
       providers: [
         { provide: MatDialogRef, useFactory: () => spyOnClass(MatDialogRef) },
         { provide: MAT_DIALOG_DATA, useValue: {} },

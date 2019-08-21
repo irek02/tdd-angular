@@ -35,7 +35,10 @@ export class BookComponent implements OnInit {
 
   book(checkIn, checkOut) {
 
-    this.dataService.bookHome$(checkIn, checkOut)
+    this.dataService.bookHome$(
+      moment(checkIn).format('MM/DD/YY'),
+      moment(checkOut).format('MM/DD/YY')
+    )
       .subscribe(() => {
         this.dialogRef.close();
         this.notificationService.post('Home booked!');
