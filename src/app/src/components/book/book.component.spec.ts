@@ -8,6 +8,8 @@ describe('BookComponent', () => {
   let fixture: ComponentFixture<BookComponent>;
   let dialogData;
 
+  const el = (selector) => fixture.nativeElement.querySelector(selector);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BookComponent],
@@ -30,13 +32,32 @@ describe('BookComponent', () => {
 
   it('should show title', () => {
 
-    expect(fixture.nativeElement.querySelector('[data-test="title"]').textContent).toContain('Home 1');
+    expect(el('[data-test="title"]').textContent)
+      .toContain('Home 1');
 
   });
 
-  // should show price
-  // should show check in date field
-  // should show check out date field
+  it('should show price', () => {
+
+    expect(el('[data-test="price"]').textContent)
+      .toContain('125');
+
+  });
+
+  it('should show check in date field', () => {
+
+    expect(el('[data-test="check-in"]'))
+      .toBeTruthy();
+
+  });
+
+  it('should show check out date field', () => {
+
+    expect(el('[data-test="check-out"]'))
+      .toBeTruthy();
+
+  });
+
   // should show total
   // should book home after clicking the Book button
 
