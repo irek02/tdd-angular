@@ -3,11 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookComponent } from './book.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../../services/data.service';
+import { spyOnClass } from 'jasmine-es6-spies';
+import { of } from 'rxjs';
 
 describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
   let dialogData;
+  let dataService: jasmine.SpyObj<DataService>;
 
   const el = (selector) => fixture.nativeElement.querySelector(selector);
 
@@ -18,7 +22,8 @@ describe('BookComponent', () => {
       ],
       declarations: [BookComponent],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} }
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: DataService, useFactory: () => spyOnClass(DataService) },
       ]
     })
       .compileComponents();
@@ -28,6 +33,7 @@ describe('BookComponent', () => {
     fixture = TestBed.createComponent(BookComponent);
     dialogData = TestBed.get(MAT_DIALOG_DATA);
     component = fixture.componentInstance;
+    dataService = TestBed.get(DataService);
 
     const homes = require('../../../../assets/homes.json');
     dialogData.home = homes[0];
@@ -82,6 +88,29 @@ describe('BookComponent', () => {
 
   });
 
-  // should book home after clicking the Book button
+  fit('should book home after clicking the Book button', () => {
+
+    dataService.bookHome$.and.returnValue(of(null));
+
+    // user enters check in date: 12/20/19
+    const checkIn = el('[data-test="check-in"] input');
+    checkIn.value = '12/20/19';
+    checkIn.dispatchEvent(new Event('input'));
+
+    // user enter check out date: 12/23/19
+    const checkOut = el('[data-test="check-out"] input');
+    checkOut.value = '12/23/19';
+    checkOut.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    // click in the Book
+    el('[data-test="book-btn"] button').click();
+
+    // assert that the data service was used to book the home
+    expect(dataService.bookHome$).toHaveBeenCalled();
+
+  });
+
 
 });
