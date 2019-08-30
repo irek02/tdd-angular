@@ -24,7 +24,7 @@
   </mat-form-field>
 </div>
 <div data-test="total" class="uk-text-bold">
-  Total: ${{ calculateTotal(checkIn, checkOut) }}
+  Total: {{ calculateTotal(checkIn, checkOut) }}
 </div>
 <div data-test="book-btn" class="uk-margin">
   <button (click)="bookHome()"

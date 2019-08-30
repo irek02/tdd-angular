@@ -105,6 +105,23 @@ describe('BookComponent', () => {
 
   });
 
+  it('should show -- for total when dates are invalid', () => {
+
+    const checkIn = el('[data-test="check-in"] input');
+    checkIn.value = '';
+    checkIn.dispatchEvent(new Event('input'));
+
+    const checkOut = el('[data-test="check-out"] input');
+    checkOut.value = '';
+    checkOut.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    expect(el('[data-test="total"]').textContent)
+      .toContain('Total: --');
+
+  });
+
   it('should book home after clicking the Book button', () => {
 
     dataService.bookHome$.and.returnValue(of(null));

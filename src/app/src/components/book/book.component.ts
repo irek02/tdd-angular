@@ -26,13 +26,17 @@ export class BookComponent implements OnInit {
 
   calculateTotal(checkIn, checkOut) {
 
-    // console.log(checkIn, checkOut);
-    // find the difference between the dates which will give the number of nights.
     const checkInDate = moment(checkIn, 'MM-DD-YY');
     const checkOutDate = moment(checkOut, 'MM-DD-YY');
     const nights = checkOutDate.diff(checkInDate, 'days');
-    // multiply the number of night by the price 125x3
-    return nights * this.data.home.price;
+
+    const total = nights * this.data.home.price;
+
+    if (total > 0 && total < 900000) {
+      return '$' + total;
+    } else {
+      return '--';
+    }
 
   }
 
