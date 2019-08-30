@@ -1,17 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookComponent } from './book.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { spyOnClass } from 'jasmine-es6-spies';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
   let dialogData;
   let dataService: jasmine.SpyObj<DataService>;
+  let dialogService: jasmine.SpyObj<MatDialogRef<BookComponent>>;
+  let notificationService: jasmine.SpyObj<MatSnackBar>;
 
   const el = (selector) => fixture.nativeElement.querySelector(selector);
 
@@ -24,6 +27,8 @@ describe('BookComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: DataService, useFactory: () => spyOnClass(DataService) },
+        { provide: MatDialogRef, useFactory: () => spyOnClass(MatDialogRef) },
+        { provide: MatSnackBar, useFactory: () => spyOnClass(MatSnackBar) },
       ]
     })
       .compileComponents();
@@ -34,6 +39,8 @@ describe('BookComponent', () => {
     dialogData = TestBed.get(MAT_DIALOG_DATA);
     component = fixture.componentInstance;
     dataService = TestBed.get(DataService);
+    dialogService = TestBed.get(MatDialogRef);
+    notificationService = TestBed.get(MatSnackBar);
 
     const homes = require('../../../../assets/homes.json');
     dialogData.home = homes[0];
@@ -88,7 +95,7 @@ describe('BookComponent', () => {
 
   });
 
-  fit('should book home after clicking the Book button', () => {
+  it('should book home after clicking the Book button', () => {
 
     dataService.bookHome$.and.returnValue(of(null));
 
@@ -109,6 +116,30 @@ describe('BookComponent', () => {
 
     // assert that the data service was used to book the home
     expect(dataService.bookHome$).toHaveBeenCalled();
+
+  });
+
+  it('should close the dialog and show notification after clicking Book button', () => {
+
+    dataService.bookHome$.and.returnValue(of(null));
+
+    // user enters check in date: 12/20/19
+    const checkIn = el('[data-test="check-in"] input');
+    checkIn.value = '12/20/19';
+    checkIn.dispatchEvent(new Event('input'));
+
+    // user enter check out date: 12/23/19
+    const checkOut = el('[data-test="check-out"] input');
+    checkOut.value = '12/23/19';
+    checkOut.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    // click in the Book
+    el('[data-test="book-btn"] button').click();
+
+    expect(dialogService.close).toHaveBeenCalled();
+    expect(notificationService.open).toHaveBeenCalled();
 
   });
 
