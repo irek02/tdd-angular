@@ -1,10 +1,24 @@
 <div data-test="title">Book {{ data.home.title }}</div>
 <div data-test="price">${{ data.home.price }} per night</div>
 <div data-test="check-in">
-  <input [(ngModel)]="checkIn">
+  <mat-form-field>
+    <input matInput [matDatepicker]="checkInPicker"
+      placeholder="Choose check in date"
+      [(ngModel)]="checkIn">
+    <mat-datepicker-toggle matSuffix [for]="checkInPicker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #checkInPicker></mat-datepicker>
+  </mat-form-field>
 </div>
 <div data-test="check-out">
-  <input [(ngModel)]="checkOut">
+  <mat-form-field>
+    <input matInput [matDatepicker]="checkOutPicker"
+      placeholder="Choose check out date"
+      [(ngModel)]="checkOut">
+    <mat-datepicker-toggle matSuffix [for]="checkOutPicker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #checkOutPicker></mat-datepicker>
+  </mat-form-field>
 </div>
 <div data-test="total">
   Total: ${{ calculateTotal(checkIn, checkOut) }}
