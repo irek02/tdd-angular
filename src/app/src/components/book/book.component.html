@@ -1,0 +1,32 @@
+<div data-test="title" mat-dialog-title>Book
+  {{ data.home.title }}</div>
+<div data-test="price" class="uk-margin"><span
+    class="uk-text-large uk-text-bold uk-text-primary">${{ data.home.price }}</span>
+  per night</div>
+<div data-test="check-in">
+  <mat-form-field>
+    <input matInput [matDatepicker]="checkInPicker"
+      placeholder="Choose check in date"
+      [(ngModel)]="checkIn">
+    <mat-datepicker-toggle matSuffix [for]="checkInPicker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #checkInPicker></mat-datepicker>
+  </mat-form-field>
+</div>
+<div data-test="check-out">
+  <mat-form-field>
+    <input matInput [matDatepicker]="checkOutPicker"
+      placeholder="Choose check out date"
+      [(ngModel)]="checkOut">
+    <mat-datepicker-toggle matSuffix [for]="checkOutPicker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #checkOutPicker></mat-datepicker>
+  </mat-form-field>
+</div>
+<div data-test="total" class="uk-text-bold">
+  Total: {{ calculateTotal(checkIn, checkOut) }}
+</div>
+<div data-test="book-btn" class="uk-margin">
+  <button (click)="bookHome()"
+    class="uk-button uk-button-primary uk-button-large uk-width-1-1">Book</button>
+</div>
