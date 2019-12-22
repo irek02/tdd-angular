@@ -46,11 +46,12 @@ describe('BookComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BookComponent);
-    dialogData = TestBed.get(MAT_DIALOG_DATA);
     component = fixture.componentInstance;
-    dataService = TestBed.get(DataService);
-    dialogService = TestBed.get(MatDialogRef);
-    notificationService = TestBed.get(MatSnackBar);
+
+    dialogData = TestBed.inject(MAT_DIALOG_DATA);
+    dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
+    dialogService = TestBed.get(MatDialogRef) as jasmine.SpyObj<MatDialogRef<BookComponent>>;
+    notificationService = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
 
     const homes = require('../../../../assets/homes.json');
     dialogData.home = homes[0];
