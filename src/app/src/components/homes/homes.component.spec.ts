@@ -33,7 +33,7 @@ describe('HomesComponent', () => {
   beforeEach(() => {
 
     dataService = TestBed.inject(DataService) as jasmine.SpyObj<DataService>;
-    dialogService = TestBed.get(DialogService) as jasmine.SpyObj<DialogService>;
+    dialogService = TestBed.inject(DialogService) as jasmine.SpyObj<DialogService>;
 
     const homes = require('../../../../assets/homes.json');
     dataService.getHomes$.and.returnValue(of(homes));

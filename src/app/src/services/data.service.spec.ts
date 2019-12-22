@@ -15,8 +15,8 @@ describe('DataService', () => {
 
   beforeEach(() => {
 
-    dataService = TestBed.get(DataService);
-    httpClient = TestBed.get(HttpClient);
+    dataService = TestBed.inject(DataService);
+    httpClient = TestBed.inject(HttpClient);
 
   });
 
